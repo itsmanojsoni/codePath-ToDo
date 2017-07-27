@@ -5,11 +5,12 @@
     android:layout_height="match_parent"
     tools:context="com.codepath.simpletodo.MainActivity">
 
-    <ListView
-        android:id="@+id/lvItem"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnAddItem"/>
+        android:layout_above="@+id/btnAddItem"
+        tools:listitem="@layout/fragment_item"/>
 
     <Button
         android:id="@+id/btnAddItem"
