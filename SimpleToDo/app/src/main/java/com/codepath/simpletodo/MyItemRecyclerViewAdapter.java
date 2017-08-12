@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.codepath.simpletodo.ItemFragment.OnListFragmentInteractionListener;
 import com.codepath.simpletodo.dummy.DummyContent.DummyItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,12 +19,20 @@ import java.util.List;
  */
 public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private List<DummyItem> mValues = new ArrayList<>();
     private final OnListFragmentInteractionListener mListener;
 
-    public MyItemRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
+    public MyItemRecyclerViewAdapter(OnListFragmentInteractionListener listener) {
+
         mListener = listener;
+    }
+
+    public void setData(List<DummyItem> items) {
+        this.mValues = items;
+    }
+
+    public void updateData(DummyItem item) {
+        mValues.add(item);
     }
 
     @Override

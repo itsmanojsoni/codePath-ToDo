@@ -1,18 +1,28 @@
 package com.codepath.simpletodo;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 
+import com.codepath.simpletodo.db.TaskContract;
+import com.codepath.simpletodo.db.TaskDbHelper;
 import com.codepath.simpletodo.dummy.DummyContent;
 import com.codepath.simpletodo.dummy.DummyContent.DummyItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +38,9 @@ public class ItemFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    private static final String TAG = "ItemFrgament";
+    private TaskDbHelper mHelper;
+    private List<String> taskList = new ArrayList<>();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -53,12 +66,29 @@ public class ItemFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+        mHelper = new TaskDbHelper(getContext());
+
+
+        SQLiteDatabase db = mHelper.getReadableDatabase();
+        Cursor cursor = db.query(TaskContract.TaskEntry.TABLE,
+                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE},
+                null, null, null, null, null);
+        while(cursor.moveToNext()) {
+            int idx = cursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_TITLE);
+            Log.d(TAG, "Reading Task: " + cursor.getString(idx));
+            taskList.add(cursor.getString(idx));
+        }
+        cursor.close();
+        db.close();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main, container, false);
+        Log.d(TAG, "Button was clicked");
+        final  EditText taskEditText = (EditText) view.findViewById(R.id.etNewItem);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
 
@@ -68,7 +98,34 @@ public class ItemFragment extends Fragment {
         } else {
             recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
-        recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+        recyclerView.setAdapter(new MyItemRecyclerViewAdapter(mListener));
+
+        Button button = (Button) view.findViewById(R.id.btnAddItem);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                String task = String.valueOf(taskEditText.getText());
+                Log.d(TAG, "Task = "+task);
+                SQLiteDatabase db = mHelper.getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put(TaskContract.TaskEntry.COL_TASK_TITLE, task);
+                db.insertWithOnConflict(TaskContract.TaskEntry.TABLE,
+                        null,
+                        values,
+                        SQLiteDatabase.CONFLICT_REPLACE);
+                db.close();
+
+                InputMethodManager inputManager =
+                        (InputMethodManager) getActivity().
+                                getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(
+                        getActivity().getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        });
 
         return view;
     }
@@ -83,6 +140,17 @@ public class ItemFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnListFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
     }
 
     @Override
