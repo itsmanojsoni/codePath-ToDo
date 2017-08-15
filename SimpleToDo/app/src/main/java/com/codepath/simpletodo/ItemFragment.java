@@ -138,7 +138,7 @@ public class ItemFragment extends Fragment {
                 inputManager.hideSoftInputFromWindow(
                         getActivity().getCurrentFocus().getWindowToken(),
                         InputMethodManager.HIDE_NOT_ALWAYS);
-                taskEditText.setText("");
+                taskEditText.setText(null);
 
             }
         });
