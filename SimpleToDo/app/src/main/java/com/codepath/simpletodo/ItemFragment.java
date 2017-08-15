@@ -41,6 +41,9 @@ public class ItemFragment extends Fragment {
     private static final String TAG = "ItemFrgament";
     private TaskDbHelper mHelper;
     private List<String> taskList = new ArrayList<>();
+    MyItemRecyclerViewAdapter adapter;
+    private int taskId;
+    private List<Task> allTaskList = new ArrayList<>();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -70,17 +73,21 @@ public class ItemFragment extends Fragment {
         mHelper = new TaskDbHelper(getContext());
 
 
-        SQLiteDatabase db = mHelper.getReadableDatabase();
-        Cursor cursor = db.query(TaskContract.TaskEntry.TABLE,
-                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE},
-                null, null, null, null, null);
-        while(cursor.moveToNext()) {
-            int idx = cursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_TITLE);
-            Log.d(TAG, "Reading Task: " + cursor.getString(idx));
-            taskList.add(cursor.getString(idx));
-        }
-        cursor.close();
-        db.close();
+//        SQLiteDatabase db = mHelper.getReadableDatabase();
+//        Cursor cursor = db.query(TaskContract.TaskEntry.TABLE,
+//                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE},
+//                null, null, null, null, null);
+//        while(cursor.moveToNext()) {
+//            int idx = cursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_TITLE);
+//            Log.d(TAG, "Reading Task: " + cursor.getString(idx));
+//            taskList.add(cursor.getString(idx));
+//        }
+
+
+
+
+//        cursor.close();
+//        db.close();
     }
 
     @Override
@@ -98,7 +105,9 @@ public class ItemFragment extends Fragment {
         } else {
             recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
-        recyclerView.setAdapter(new MyItemRecyclerViewAdapter(mListener));
+
+        adapter = new MyItemRecyclerViewAdapter(mListener);
+        recyclerView.setAdapter(adapter);
 
         Button button = (Button) view.findViewById(R.id.btnAddItem);
 
@@ -109,14 +118,29 @@ public class ItemFragment extends Fragment {
 
                 String task = String.valueOf(taskEditText.getText());
                 Log.d(TAG, "Task = "+task);
-                SQLiteDatabase db = mHelper.getWritableDatabase();
-                ContentValues values = new ContentValues();
-                values.put(TaskContract.TaskEntry.COL_TASK_TITLE, task);
-                db.insertWithOnConflict(TaskContract.TaskEntry.TABLE,
-                        null,
-                        values,
-                        SQLiteDatabase.CONFLICT_REPLACE);
-                db.close();
+//                SQLiteDatabase db = mHelper.getWritableDatabase();
+//                ContentValues values = new ContentValues();
+//                values.put(TaskContract.TaskEntry.COL_TASK_TITLE, task);
+//                db.insertWithOnConflict(TaskContract.TaskEntry.TABLE,
+//                        null,
+//                        values,
+//                        SQLiteDatabase.CONFLICT_REPLACE);
+//                db.close();
+//
+//                InputMethodManager inputManager =
+//                        (InputMethodManager) getActivity().
+//                                getSystemService(Context.INPUT_METHOD_SERVICE);
+//                inputManager.hideSoftInputFromWindow(
+//                        getActivity().getCurrentFocus().getWindowToken(),
+//                        InputMethodManager.HIDE_NOT_ALWAYS);
+
+
+                AppDatabase database = AppDatabase.getDatabase(getContext());
+//                Task build = Task.builder().setId(i).setSummary("Testing " + i).setDescription("More ..." + i).build();
+
+                Log.d(TAG, "Button Clicked and summary is set to : "+task);
+                Task build = Task.builder().setId(taskId++).setSummary(task).build();
+                database.taskModel().addTask(build);
 
                 InputMethodManager inputManager =
                         (InputMethodManager) getActivity().
@@ -145,6 +169,11 @@ public class ItemFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        AppDatabase database = AppDatabase.getDatabase(getContext());
+        allTaskList = database.taskModel().getAllTasks();
+
+        Log.d(TAG, "OnResume and allTaskList Size is : "+allTaskList.size());
+        adapter.updateData(allTaskList);
     }
 
     @Override

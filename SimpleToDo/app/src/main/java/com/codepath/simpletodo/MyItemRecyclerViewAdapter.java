@@ -1,6 +1,7 @@
 package com.codepath.simpletodo;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,8 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
     private List<DummyItem> mValues = new ArrayList<>();
     private final OnListFragmentInteractionListener mListener;
+    private List<Task> taskList = new ArrayList<>();
+    private final String TAG = "MyItemRecyclerViewAdapter";
 
     public MyItemRecyclerViewAdapter(OnListFragmentInteractionListener listener) {
 
@@ -31,8 +34,10 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         this.mValues = items;
     }
 
-    public void updateData(DummyItem item) {
-        mValues.add(item);
+    public void updateData(List<Task> taskList) {
+        this.taskList.addAll(taskList);
+        Log.d(TAG, "UPdate Data and task LIst Size = "+taskList.size());
+        notifyDataSetChanged();
     }
 
     @Override
@@ -44,9 +49,21 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+//        holder.mItem = mValues.get(position);
+
+
+        String summary = taskList.get(position).summary;
+
+        Log.d(TAG, "OnBindViewHolder and Summary is : "+summary);
+
+
+        if (summary != null && !summary.isEmpty()) {
+            holder.titleView.setText(summary);
+        }
+
+//        if (priority != null && !priority.isEmpty()) {
+//            holder.priority.setText(priority);
+//        }
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,25 +79,29 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+
+        Log.d(TAG, "Get Item Count and Size is :"+taskList.size());
+        return taskList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public TextView titleView;
+        public TextView descriptionView;
+        public TextView priority;
         public DummyItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            titleView = (TextView) view.findViewById(R.id.task);
+            priority = (TextView) view.findViewById(R.id.priority);
+//            descriptionView = (TextView) view.findViewById(R.id.priority);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + descriptionView.getText() + "'";
         }
     }
 }

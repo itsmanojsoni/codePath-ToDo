@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity  implements ItemFragment.OnL
             Log.d("MainActivity", "gListFragment is null");
             listFragment = ItemFragment.newInstance(1);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.add(R.id.listContainer, listFragment, TODO_LIST_FRAGMENT_TAG);
+            fragmentTransaction.replace(R.id.listContainer, listFragment, TODO_LIST_FRAGMENT_TAG);
             fragmentTransaction.commit();
         } else {
 
