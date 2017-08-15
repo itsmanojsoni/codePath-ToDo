@@ -35,7 +35,8 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     }
 
     public void updateData(List<Task> taskList) {
-        this.taskList.addAll(taskList);
+//        this.taskList.addAll(taskList);
+        this.taskList = taskList;
         Log.d(TAG, "UPdate Data and task LIst Size = "+taskList.size());
         notifyDataSetChanged();
     }

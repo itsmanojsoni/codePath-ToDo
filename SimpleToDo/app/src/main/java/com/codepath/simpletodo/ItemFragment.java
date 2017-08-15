@@ -44,6 +44,7 @@ public class ItemFragment extends Fragment {
     MyItemRecyclerViewAdapter adapter;
     private int taskId;
     private List<Task> allTaskList = new ArrayList<>();
+    private List<Task> singleTaskList = new ArrayList<>();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -128,6 +129,7 @@ public class ItemFragment extends Fragment {
 
                 allTaskList = database.taskModel().getAllTasks();
                 Log.d(TAG, "Adapter Update Data and allTaskList is : "+allTaskList.size());
+                singleTaskList.add(build);
                 adapter.updateData(allTaskList);
 
                 InputMethodManager inputManager =
