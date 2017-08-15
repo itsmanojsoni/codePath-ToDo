@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.codepath.simpletodo.ItemFragment.OnListFragmentInteractionListener;
+import com.codepath.simpletodo.TaskListFragment.OnListFragmentInteractionListener;
 import com.codepath.simpletodo.dummy.DummyContent.DummyItem;
 
 import java.util.ArrayList;

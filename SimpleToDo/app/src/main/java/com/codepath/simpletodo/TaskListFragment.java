@@ -1,9 +1,6 @@
 package com.codepath.simpletodo;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,9 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.codepath.simpletodo.db.TaskContract;
 import com.codepath.simpletodo.db.TaskDbHelper;
-import com.codepath.simpletodo.dummy.DummyContent;
 import com.codepath.simpletodo.dummy.DummyContent.DummyItem;
 
 import java.util.ArrayList;
@@ -31,7 +26,7 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class ItemFragment extends Fragment {
+public class TaskListFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -50,13 +45,13 @@ public class ItemFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ItemFragment() {
+    public TaskListFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static ItemFragment newInstance(int columnCount) {
-        ItemFragment fragment = new ItemFragment();
+    public static TaskListFragment newInstance(int columnCount) {
+        TaskListFragment fragment = new TaskListFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -72,23 +67,6 @@ public class ItemFragment extends Fragment {
         }
 
         mHelper = new TaskDbHelper(getContext());
-
-
-//        SQLiteDatabase db = mHelper.getReadableDatabase();
-//        Cursor cursor = db.query(TaskContract.TaskEntry.TABLE,
-//                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE},
-//                null, null, null, null, null);
-//        while(cursor.moveToNext()) {
-//            int idx = cursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_TITLE);
-//            Log.d(TAG, "Reading Task: " + cursor.getString(idx));
-//            taskList.add(cursor.getString(idx));
-//        }
-
-
-
-
-//        cursor.close();
-//        db.close();
     }
 
     @Override

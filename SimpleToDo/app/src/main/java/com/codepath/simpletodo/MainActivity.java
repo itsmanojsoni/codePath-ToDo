@@ -10,9 +10,10 @@ import com.codepath.simpletodo.dummy.DummyContent;
 
 
 public class MainActivity extends AppCompatActivity
-        implements ItemFragment.OnListFragmentInteractionListener,TaskDetailFragment.OnFragmentInteractionListener{
+        implements TaskListFragment.OnListFragmentInteractionListener,TaskDetailFragment.OnFragmentInteractionListener{
 
     private final String TODO_LIST_FRAGMENT_TAG = "TODO_LIST_FRAGMENT_TAG";
+    private  final  String TODO_DETAIL_FRAGMENT_TAG = "TODO_DETAIL_FRAGMENT_TAG";
     private final String TAG = "MainActivity";
 
     @Override
@@ -21,12 +22,12 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.todolist);
 
 
-        ItemFragment listFragment =
-                (ItemFragment) getSupportFragmentManager().findFragmentByTag(TODO_LIST_FRAGMENT_TAG);
+        TaskListFragment listFragment =
+                (TaskListFragment) getSupportFragmentManager().findFragmentByTag(TODO_LIST_FRAGMENT_TAG);
 
         if (listFragment == null) {
             Log.d("MainActivity", "gListFragment is null");
-            listFragment = ItemFragment.newInstance(1);
+            listFragment = TaskListFragment.newInstance(1);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.listContainer, listFragment, TODO_LIST_FRAGMENT_TAG);
             fragmentTransaction.commit();
@@ -40,6 +41,15 @@ public class MainActivity extends AppCompatActivity
     public void onListFragmentInteraction(DummyContent.DummyItem item) {
 
         Log.d(TAG, "Item Clicked");
+        TaskDetailFragment taskDetailFragment =
+                (TaskDetailFragment) getSupportFragmentManager().findFragmentByTag(TODO_DETAIL_FRAGMENT_TAG);
+
+        if (taskDetailFragment == null) {
+            taskDetailFragment = TaskDetailFragment.newInstance(null, null);
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_LIST_FRAGMENT_TAG);
+            fragmentTransaction.commit();
+        }
     }
 
     @Override
