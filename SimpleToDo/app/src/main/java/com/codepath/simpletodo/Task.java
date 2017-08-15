@@ -17,14 +17,16 @@ public class Task {
     public String summary;
     public String description;
     public boolean done;
+    public String priority;
 
 //    public Date dueDate;
 
-    public Task(long id, String summary, String description, boolean done) {
+    public Task(long id, String summary, String description, boolean done, String priority) {
         this.id = id;
         this.summary = summary;
         this.description = description;
         this.done = done;
+        this.priority = priority;
 //        this.dueDate = dueDate;
     }
 
@@ -38,6 +40,7 @@ public class Task {
         private String summary = "";
         private String description = "";
         private boolean done = false;
+        private String priority = "LOW";
 //        private Date dueDate;
 
         public TaskBuilder setId(long id) {
@@ -60,13 +63,18 @@ public class Task {
             return this;
         }
 
+        public TaskBuilder setPriority (String priority) {
+            this.priority = priority;
+            return this;
+        }
+
 //        public TaskBuilder setDueDate(Date dueDate) {
 //            this.dueDate = new Date(dueDate.getTime());
 //            return this;
 //        }
 
         public Task build() {
-            return new Task(id, summary, description, done);
+            return new Task(id, summary, description, done, priority);
         }
     }
 
@@ -79,7 +87,4 @@ public class Task {
                 ", done=" + done +
                 '}';
     }
-
-
-
 }

@@ -1,5 +1,6 @@
 package com.codepath.simpletodo;
 
+import android.net.Uri;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,7 +9,8 @@ import android.util.Log;
 import com.codepath.simpletodo.dummy.DummyContent;
 
 
-public class MainActivity extends AppCompatActivity  implements ItemFragment.OnListFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity
+        implements ItemFragment.OnListFragmentInteractionListener,TaskDetailFragment.OnFragmentInteractionListener{
 
     private final String TODO_LIST_FRAGMENT_TAG = "TODO_LIST_FRAGMENT_TAG";
     private final String TAG = "MainActivity";
@@ -38,5 +40,10 @@ public class MainActivity extends AppCompatActivity  implements ItemFragment.OnL
     public void onListFragmentInteraction(DummyContent.DummyItem item) {
 
         Log.d(TAG, "Item Clicked");
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        Log.d(TAG, "On Fragment Interaction Detail View");
     }
 }
