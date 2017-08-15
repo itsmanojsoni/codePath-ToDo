@@ -142,6 +142,10 @@ public class ItemFragment extends Fragment {
                 Task build = Task.builder().setId(taskId++).setSummary(task).build();
                 database.taskModel().addTask(build);
 
+                allTaskList = database.taskModel().getAllTasks();
+                Log.d(TAG, "Adapter Update Data and allTaskList is : "+allTaskList.size());
+                adapter.updateData(allTaskList);
+
                 InputMethodManager inputManager =
                         (InputMethodManager) getActivity().
                                 getSystemService(Context.INPUT_METHOD_SERVICE);
