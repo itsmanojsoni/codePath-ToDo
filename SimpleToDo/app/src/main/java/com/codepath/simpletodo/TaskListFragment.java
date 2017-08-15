@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.codepath.simpletodo.db.TaskDbHelper;
-import com.codepath.simpletodo.dummy.DummyContent.DummyItem;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -170,6 +170,6 @@ public class TaskListFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction();
     }
 }

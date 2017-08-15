@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.codepath.simpletodo.TaskListFragment.OnListFragmentInteractionListener;
-import com.codepath.simpletodo.dummy.DummyContent.DummyItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,7 @@ import java.util.List;
  */
 public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
 
-    private List<DummyItem> mValues = new ArrayList<>();
+
     private final OnListFragmentInteractionListener mListener;
     private List<Task> taskList = new ArrayList<>();
     private final String TAG = "MyItemRecyclerViewAdapter";
@@ -30,9 +29,9 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         mListener = listener;
     }
 
-    public void setData(List<DummyItem> items) {
-        this.mValues = items;
-    }
+//    public void setData(List<DummyItem> items) {
+//        this.mValues = items;
+//    }
 
     public void updateData(List<Task> taskList) {
 //        this.taskList.addAll(taskList);
@@ -72,7 +71,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction();
                 }
             }
         });
@@ -90,7 +89,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         public TextView titleView;
         public TextView descriptionView;
         public TextView priority;
-        public DummyItem mItem;
+//        public DummyItem mItem;
 
         public ViewHolder(View view) {
             super(view);

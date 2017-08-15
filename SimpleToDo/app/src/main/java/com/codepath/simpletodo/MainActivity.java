@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.codepath.simpletodo.dummy.DummyContent;
 
 
 public class MainActivity extends AppCompatActivity
@@ -38,7 +37,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onListFragmentInteraction() {
 
         Log.d(TAG, "Item Clicked");
         TaskDetailFragment taskDetailFragment =
