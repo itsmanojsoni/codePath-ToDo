@@ -118,22 +118,6 @@ public class ItemFragment extends Fragment {
 
                 String task = String.valueOf(taskEditText.getText());
                 Log.d(TAG, "Task = "+task);
-//                SQLiteDatabase db = mHelper.getWritableDatabase();
-//                ContentValues values = new ContentValues();
-//                values.put(TaskContract.TaskEntry.COL_TASK_TITLE, task);
-//                db.insertWithOnConflict(TaskContract.TaskEntry.TABLE,
-//                        null,
-//                        values,
-//                        SQLiteDatabase.CONFLICT_REPLACE);
-//                db.close();
-//
-//                InputMethodManager inputManager =
-//                        (InputMethodManager) getActivity().
-//                                getSystemService(Context.INPUT_METHOD_SERVICE);
-//                inputManager.hideSoftInputFromWindow(
-//                        getActivity().getCurrentFocus().getWindowToken(),
-//                        InputMethodManager.HIDE_NOT_ALWAYS);
-
 
                 AppDatabase database = AppDatabase.getDatabase(getContext());
 //                Task build = Task.builder().setId(i).setSummary("Testing " + i).setDescription("More ..." + i).build();
@@ -152,6 +136,8 @@ public class ItemFragment extends Fragment {
                 inputManager.hideSoftInputFromWindow(
                         getActivity().getCurrentFocus().getWindowToken(),
                         InputMethodManager.HIDE_NOT_ALWAYS);
+                taskEditText.setText("");
+
             }
         });
 
