@@ -8,11 +8,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+import java.util.List;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
+
 import static android.content.ContentValues.TAG;
+import static com.codepath.simpletodo.R.id.prioritySpinner;
+import static com.codepath.simpletodo.R.id.task;
 import static com.codepath.simpletodo.R.id.taskStatusSpinner;
+import android.widget.AdapterView.OnItemSelectedListener;
+
 
 
 /**
@@ -23,7 +36,7 @@ import static com.codepath.simpletodo.R.id.taskStatusSpinner;
  * Use the {@link TaskDetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TaskDetailFragment extends Fragment {
+public class TaskDetailFragment extends Fragment implements  OnItemSelectedListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -123,6 +136,24 @@ public class TaskDetailFragment extends Fragment {
 
         }
 
+        // set the Spinner and Dates here
+
+        // Spinner click listener
+        priority.setOnItemSelectedListener(this);
+        List<String> priorityList  = new ArrayList<>();
+        priorityList.add("High");
+        priorityList.add("Medium");
+        priorityList.add("Low");
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, priorityList);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        priority.setAdapter(dataAdapter);
+
 
 
 
@@ -138,6 +169,24 @@ public class TaskDetailFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+        String selectedPriority = (String)parent.getItemAtPosition(pos);
+
+        Log.d(TAG, "Selected Priority is : "+selectedPriority);
+        AppDatabase database = AppDatabase.getDatabase(getContext());
+
+        Task newTask = database.taskModel().getTask(workingTask.id);
+        newTask.setPriority(selectedPriority);
+        database.taskModel().updateTask(newTask);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 
     /**

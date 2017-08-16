@@ -62,9 +62,13 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             holder.titleView.setText(summary);
         }
 
-//        if (priority != null && !priority.isEmpty()) {
-//            holder.priority.setText(priority);
-//        }
+        String priority = taskList.get(position).priority;
+
+        Log.d(TAG, "Priority = "+priority);
+
+        if (priority != null && !priority.isEmpty()) {
+            holder.priority.setText(priority);
+        }
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

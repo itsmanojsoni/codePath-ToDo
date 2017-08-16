@@ -31,6 +31,11 @@ public class Task {
     }
 
 
+    public void setPriority (String priority) {
+        this.priority = priority;
+    }
+
+
     public static TaskBuilder builder(){
         return new TaskBuilder();
     }

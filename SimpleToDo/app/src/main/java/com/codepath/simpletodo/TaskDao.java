@@ -23,7 +23,7 @@ public interface TaskDao {
     public List<Task> getAllTasks();
 
     @Query("select * from task where id = :id")
-    public List<Task> getTask(long id);
+    public Task getTask(long id);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateTask(Task task);
