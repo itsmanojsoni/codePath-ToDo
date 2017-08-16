@@ -64,9 +64,10 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
         String priority = taskList.get(position).priority;
 
-        Log.d(TAG, "Priority = "+priority);
+
 
         if (priority != null && !priority.isEmpty()) {
+            Log.d(TAG, "Priority = "+priority);
             holder.priority.setText(priority);
         }
 
