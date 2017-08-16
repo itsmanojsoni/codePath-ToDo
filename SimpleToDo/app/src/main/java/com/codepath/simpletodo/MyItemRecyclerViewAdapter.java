@@ -52,6 +52,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 //        holder.mItem = mValues.get(position);
 
 
+        final Task task = taskList.get(position);
         String summary = taskList.get(position).summary;
 
         Log.d(TAG, "OnBindViewHolder and Summary is : "+summary);
@@ -71,7 +72,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction();
+                    mListener.onListFragmentInteraction(task);
                 }
             }
         });

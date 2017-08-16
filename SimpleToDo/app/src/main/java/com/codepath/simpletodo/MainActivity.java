@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListFragmentInteraction() {
+    public void onListFragmentInteraction(Task task) {
 
         Log.d(TAG, "Item Clicked");
         TaskDetailFragment taskDetailFragment =
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_LIST_FRAGMENT_TAG);
             fragmentTransaction.commit();
+            taskDetailFragment.setData(task);
         }
     }
 

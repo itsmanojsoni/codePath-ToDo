@@ -170,6 +170,6 @@ public class TaskListFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction();
+        void onListFragmentInteraction(Task task);
     }
 }

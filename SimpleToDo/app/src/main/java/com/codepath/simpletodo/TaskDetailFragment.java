@@ -4,9 +4,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Spinner;
+
+import static android.content.ContentValues.TAG;
+import static com.codepath.simpletodo.R.id.taskStatusSpinner;
 
 
 /**
@@ -26,6 +32,13 @@ public class TaskDetailFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Task workingTask;
+    private EditText summary;
+    private EditText description;
+    private Spinner taskStatus;
+    private Spinner priority;
+
+    private static final String TAG = "TaskDetailFragment";
 
     private OnFragmentInteractionListener mListener;
 
@@ -51,6 +64,11 @@ public class TaskDetailFragment extends Fragment {
         return fragment;
     }
 
+    public void setData(Task task) {
+        Log.d(TAG, "Task is being set in the detail Fragment");
+        this.workingTask = task;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +82,14 @@ public class TaskDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_task_detail, container, false);
+        View view =  inflater.inflate(R.layout.fragment_task_detail, container, false);
+
+        summary = (EditText) view.findViewById(R.id.summary);
+        description = (EditText) view.findViewById(R.id.description);
+        priority = (Spinner) view.findViewById(R.id.prioritySpinner);
+        taskStatus = (Spinner) view.findViewById(R.id.taskStatusSpinner);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -83,6 +108,30 @@ public class TaskDetailFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public void onResume() {
+
+        super.onResume();
+
+        Log.d(TAG, "Task is already set: task "+workingTask.summary);
+        summary.setText(workingTask.summary);
+        if (workingTask.description != null) {
+            description.setText(workingTask.description);
+        } else {
+
+        }
+
+
+
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
     }
 
     @Override
