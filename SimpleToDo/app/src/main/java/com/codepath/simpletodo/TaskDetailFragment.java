@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import static android.content.ContentValues.TAG;
+import static android.webkit.WebSettings.RenderPriority.HIGH;
 import static com.codepath.simpletodo.R.id.prioritySpinner;
 import static com.codepath.simpletodo.R.id.task;
 import static com.codepath.simpletodo.R.id.taskStatusSpinner;
@@ -50,6 +51,12 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
     private EditText description;
     private Spinner taskStatus;
     private Spinner priority;
+
+    public enum PriorityLevel {
+        HIGH,
+        MEDIUM,
+        LOW
+    }
 
     private static final String TAG = "TaskDetailFragment";
 
@@ -141,9 +148,9 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
         // Spinner click listener
         priority.setOnItemSelectedListener(this);
         List<String> priorityList  = new ArrayList<>();
-        priorityList.add("High");
-        priorityList.add("Medium");
-        priorityList.add("Low");
+        priorityList.add(PriorityLevel.HIGH.name());
+        priorityList.add(PriorityLevel.MEDIUM.name());
+        priorityList.add(PriorityLevel.LOW.name());
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, priorityList);

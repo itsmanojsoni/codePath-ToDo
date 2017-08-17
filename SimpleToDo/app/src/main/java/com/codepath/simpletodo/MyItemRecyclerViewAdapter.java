@@ -1,5 +1,6 @@
 package com.codepath.simpletodo;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import com.codepath.simpletodo.TaskListFragment.OnListFragmentInteractionListene
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.webkit.WebSettings.RenderPriority.HIGH;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
@@ -69,6 +72,24 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         if (priority != null && !priority.isEmpty()) {
             Log.d(TAG, "Priority = "+priority);
             holder.priority.setText(priority);
+
+            TaskDetailFragment.PriorityLevel priorityLevel =  TaskDetailFragment.PriorityLevel.valueOf(priority);
+
+            switch (priorityLevel) {
+                case HIGH:
+                    holder.priority.setTextColor(0xFFFF0000);
+                    break;
+                case MEDIUM:
+                    holder.priority.setTextColor(0xFFFFA500);
+                    break;
+                case LOW:
+                    Log.d(TAG, "set Text Color to Blue");
+                    holder.priority.setTextColor(0xFF00BFFF);
+                    break;
+                default:
+                    Log.d(TAG,"Color not set");
+                    break;
+            }
         }
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
