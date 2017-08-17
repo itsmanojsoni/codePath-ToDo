@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity
             listFragment = TaskListFragment.newInstance(1);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.listContainer, listFragment, TODO_LIST_FRAGMENT_TAG);
+//            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         } else {
 
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity
             taskDetailFragment = TaskDetailFragment.newInstance(null, null);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_LIST_FRAGMENT_TAG);
+            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
             taskDetailFragment.setData(task);
         }
@@ -56,4 +58,5 @@ public class MainActivity extends AppCompatActivity
     public void onFragmentInteraction(Uri uri) {
         Log.d(TAG, "On Fragment Interaction Detail View");
     }
+
 }
