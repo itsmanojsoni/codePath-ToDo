@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity
             listFragment = TaskListFragment.newInstance(1);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.listContainer, listFragment, TODO_LIST_FRAGMENT_TAG);
-//            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         } else {
 

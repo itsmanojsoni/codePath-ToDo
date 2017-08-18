@@ -58,6 +58,12 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
         LOW
     }
 
+    public enum TaskStatus {
+        NotStarted,
+        InProgress,
+        Done
+    }
+
     private static final String TAG = "TaskDetailFragment";
 
     private OnFragmentInteractionListener mListener;
@@ -144,25 +150,9 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
         }
 
         // set the Spinner and Dates here
+        addSpinnerForPriority();
 
-        // Spinner click listener
-        priority.setOnItemSelectedListener(this);
-        List<String> priorityList  = new ArrayList<>();
-        priorityList.add(PriorityLevel.HIGH.name());
-        priorityList.add(PriorityLevel.MEDIUM.name());
-        priorityList.add(PriorityLevel.LOW.name());
-
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, priorityList);
-
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // attaching data adapter to spinner
-        priority.setAdapter(dataAdapter);
-
-
-
+        addSpinnerForStatus();
 
     }
 
@@ -209,5 +199,42 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void addSpinnerForPriority() {
+        // Spinner click listener
+        priority.setOnItemSelectedListener(this);
+        List<String> priorityList  = new ArrayList<>();
+        priorityList.add(PriorityLevel.HIGH.name());
+        priorityList.add(PriorityLevel.MEDIUM.name());
+        priorityList.add(PriorityLevel.LOW.name());
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, priorityList);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        priority.setAdapter(dataAdapter);
+
+    }
+
+    private void addSpinnerForStatus() {
+        priority.setOnItemSelectedListener(this);
+        List<String> taskStatusList  = new ArrayList<>();
+        taskStatusList.add(TaskStatus.NotStarted.name());
+        taskStatusList.add(TaskStatus.InProgress.name());
+        taskStatusList.add(TaskStatus.Done.name());
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, taskStatusList);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        taskStatus.setAdapter(dataAdapter);
+
     }
 }
