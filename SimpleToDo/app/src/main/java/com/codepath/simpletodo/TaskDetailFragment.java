@@ -4,10 +4,16 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -18,6 +24,7 @@ import java.util.List;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import static android.content.ContentValues.TAG;
@@ -115,6 +122,45 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
         priority = (Spinner) view.findViewById(R.id.prioritySpinner);
         taskStatus = (Spinner) view.findViewById(R.id.taskStatusSpinner);
 
+
+        summary.requestFocus();
+
+        summary.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                summary.setFocusableInTouchMode(true);
+                return false;
+            }
+        });
+
+        summary.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    String text = v.getText().toString();
+                    updateDatabaseWithNewSummary(text);
+                    summary.setFocusable(false);
+                    hide_keyboard();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
+        description.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    String text = v.getText().toString();
+                    updateDatabaseWithNewDescription(text);
+                    return true;
+                }
+                return false;
+            }
+        });
+
         return view;
     }
 
@@ -201,6 +247,20 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
         void onFragmentInteraction(Uri uri);
     }
 
+    private void updateDatabaseWithNewSummary(String summary) {
+        AppDatabase database = AppDatabase.getDatabase(getContext());
+        Task newTask = database.taskModel().getTask(workingTask.id);
+        newTask.setSummary(summary);
+        database.taskModel().updateTask(newTask);
+    }
+
+    private void updateDatabaseWithNewDescription(String description) {
+        AppDatabase database = AppDatabase.getDatabase(getContext());
+        Task newTask = database.taskModel().getTask(workingTask.id);
+        newTask.setDescription(description);
+        database.taskModel().updateTask(newTask);
+    }
+
     private void addSpinnerForPriority() {
         // Spinner click listener
         priority.setOnItemSelectedListener(this);
@@ -217,6 +277,20 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
 
         // attaching data adapter to spinner
         priority.setAdapter(dataAdapter);
+
+    }
+
+    private void hide_keyboard() {
+//        InputMethodManager imm;
+//        imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.hideSoftInputFromWindow(kip_time.getWindowToken(), 0);
+
+        InputMethodManager inputManager =
+                (InputMethodManager) getActivity().
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(
+                getActivity().getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
 
     }
 

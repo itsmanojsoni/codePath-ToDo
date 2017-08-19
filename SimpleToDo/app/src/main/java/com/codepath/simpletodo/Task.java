@@ -35,6 +35,15 @@ public class Task {
         this.priority = priority;
     }
 
+    public void setSummary (String summary) {
+        this.summary = summary;
+    }
+
+    public void setDescription (String description) {
+        this.description = description;
+    }
+
+
 
     public static TaskBuilder builder(){
         return new TaskBuilder();

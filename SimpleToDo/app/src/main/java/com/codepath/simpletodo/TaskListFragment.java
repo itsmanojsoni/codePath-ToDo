@@ -93,13 +93,11 @@ public class TaskListFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 String task = String.valueOf(taskEditText.getText());
                 Log.d(TAG, "Task = "+task);
 
                 AppDatabase database = AppDatabase.getDatabase(getContext());
-//                Task build = Task.builder().setId(i).setSummary("Testing " + i).setDescription("More ..." + i).build();
+//              Task build = Task.builder().setId(i).setSummary("Testing " + i).setDescription("More ..." + i).build();
 
                 Log.d(TAG, "Button Clicked and summary is set to : "+task);
                 Task build = Task.builder().setId(taskId++).setSummary(task).build();
