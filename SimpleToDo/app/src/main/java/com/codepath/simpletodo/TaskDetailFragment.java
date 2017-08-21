@@ -25,13 +25,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import static android.content.ContentValues.TAG;
-import static android.webkit.WebSettings.RenderPriority.HIGH;
-import static com.codepath.simpletodo.R.id.prioritySpinner;
-import static com.codepath.simpletodo.R.id.task;
-import static com.codepath.simpletodo.R.id.taskStatusSpinner;
+
 import android.widget.AdapterView.OnItemSelectedListener;
 
 
@@ -71,6 +66,51 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
         Done
     }
 
+    private class TaskStatusSelection implements OnItemSelectedListener{
+        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+            Log.d(TAG, "View is : "+view);
+            Log.d(TAG, "Parent is :"+parent);
+            Log.d(TAG, "Id is :"+id);
+            String taskStatusSelection = (String)parent.getItemAtPosition(pos);
+
+            Log.d(TAG, "Selected task Status is : "+taskStatusSelection);
+            AppDatabase database = AppDatabase.getDatabase(getContext());
+
+            Task newTask = database.taskModel().getTask(workingTask.id);
+            newTask.setPriority(taskStatusSelection);
+            database.taskModel().updateTask(newTask);
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+    }
+
+    private class PrioritySelection implements OnItemSelectedListener{
+
+
+        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+            Log.d(TAG, "View is : "+view);
+            Log.d(TAG, "Parent is :"+parent);
+            Log.d(TAG, "Id is :"+id);
+            String selectedPriority = (String)parent.getItemAtPosition(pos);
+
+            Log.d(TAG, "Selected Priority is : "+selectedPriority);
+            AppDatabase database = AppDatabase.getDatabase(getContext());
+
+            Task newTask = database.taskModel().getTask(workingTask.id);
+            newTask.setPriority(selectedPriority);
+            database.taskModel().updateTask(newTask);
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+
+
+    }
     private static final String TAG = "TaskDetailFragment";
 
     private OnFragmentInteractionListener mListener;
@@ -149,12 +189,21 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
         });
 
 
+        description.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                description.setFocusableInTouchMode(true);
+                return false;
+            }
+        });
         description.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     String text = v.getText().toString();
                     updateDatabaseWithNewDescription(text);
+                    description.setFocusable(false);
+                    hide_keyboard();
                     return true;
                 }
                 return false;
@@ -195,6 +244,7 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
 
         }
 
+        String priority = workingTask.getPriority();
         // set the Spinner and Dates here
         addSpinnerForPriority();
 
@@ -217,6 +267,10 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
+
+        Log.d(TAG, "View is : "+view);
+        Log.d(TAG, "Parent is :"+parent);
+        Log.d(TAG, "Id is :"+id);
         String selectedPriority = (String)parent.getItemAtPosition(pos);
 
         Log.d(TAG, "Selected Priority is : "+selectedPriority);
@@ -263,7 +317,18 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
 
     private void addSpinnerForPriority() {
         // Spinner click listener
-        priority.setOnItemSelectedListener(this);
+        priority.setOnItemSelectedListener(new PrioritySelection() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                String selectedPriority = (String)parent.getItemAtPosition(pos);
+
+                Log.d(TAG, "Finally, Selected Priority is : "+selectedPriority);
+                AppDatabase database = AppDatabase.getDatabase(getContext());
+
+                Task newTask = database.taskModel().getTask(workingTask.id);
+                newTask.setPriority(selectedPriority);
+                database.taskModel().updateTask(newTask);
+            }
+        });
         List<String> priorityList  = new ArrayList<>();
         priorityList.add(PriorityLevel.HIGH.name());
         priorityList.add(PriorityLevel.MEDIUM.name());
@@ -275,16 +340,27 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        boolean found = false;
+        int position = -1;
+        String priorityThing = workingTask.getPriority();
+        for (int i = 0; i < priorityList.size(); i++) {
+            if (priorityList.get(i).equals(priorityThing)) {
+                found = true;
+                position = i;
+                break;
+            }
+        }
+
         // attaching data adapter to spinner
         priority.setAdapter(dataAdapter);
+
+        if (found) {
+            priority.setSelection(position);
+        }
 
     }
 
     private void hide_keyboard() {
-//        InputMethodManager imm;
-//        imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-//        imm.hideSoftInputFromWindow(kip_time.getWindowToken(), 0);
-
         InputMethodManager inputManager =
                 (InputMethodManager) getActivity().
                         getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -295,7 +371,17 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
     }
 
     private void addSpinnerForStatus() {
-        priority.setOnItemSelectedListener(this);
+        taskStatus.setOnItemSelectedListener(new TaskStatusSelection() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                String taskStatusSelection = (String)parent.getItemAtPosition(pos);
+                Log.d(TAG, "Finally, Selected task Status is : "+taskStatusSelection);
+                AppDatabase database = AppDatabase.getDatabase(getContext());
+
+                Task newTask = database.taskModel().getTask(workingTask.id);
+                newTask.setTaskStatus(taskStatusSelection);
+                database.taskModel().updateTask(newTask);
+            }
+        });
         List<String> taskStatusList  = new ArrayList<>();
         taskStatusList.add(TaskStatus.NotStarted.name());
         taskStatusList.add(TaskStatus.InProgress.name());
@@ -303,12 +389,23 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, taskStatusList);
-
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         // attaching data adapter to spinner
         taskStatus.setAdapter(dataAdapter);
 
+        boolean found = false;
+        int position = -1;
+        String workingTaskStatus = workingTask.getTaskStatus();
+        for (int i = 0; i < taskStatusList.size(); i++) {
+            if (taskStatusList.get(i).equals(workingTaskStatus)) {
+                found = true;
+                position = i;
+                break;
+            }
+        }
+        if (found) {
+            taskStatus.setSelection(position);
+        }
     }
 }

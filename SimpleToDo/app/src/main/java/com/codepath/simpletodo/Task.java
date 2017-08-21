@@ -16,12 +16,12 @@ public class Task {
     public final long id;
     public String summary;
     public String description;
-    public boolean done;
+    public String done;
     public String priority;
 
 //    public Date dueDate;
 
-    public Task(long id, String summary, String description, boolean done, String priority) {
+    public Task(long id, String summary, String description, String done, String priority) {
         this.id = id;
         this.summary = summary;
         this.description = description;
@@ -30,6 +30,22 @@ public class Task {
 //        this.dueDate = dueDate;
     }
 
+
+    public String getPriority () {
+        return priority;
+    }
+
+    public String getTaskStatus() {
+        return done;
+    }
+
+    public String getSummary () {
+        return summary;
+    }
+
+    public String getDescription () {
+        return description;
+    }
 
     public void setPriority (String priority) {
         this.priority = priority;
@@ -43,6 +59,10 @@ public class Task {
         this.description = description;
     }
 
+    public void setTaskStatus (String taskStatus) {
+        this.done = taskStatus;
+    }
+
 
 
     public static TaskBuilder builder(){
@@ -53,7 +73,7 @@ public class Task {
         private long id;
         private String summary = "";
         private String description = "";
-        private boolean done = false;
+        private String done = "NotStarted";
         private String priority = "LOW";
 //        private Date dueDate;
 
@@ -72,7 +92,7 @@ public class Task {
             return this;
         }
 
-        public TaskBuilder setDone(boolean done) {
+        public TaskBuilder setDone(String done) {
             this.done = done;
             return this;
         }
