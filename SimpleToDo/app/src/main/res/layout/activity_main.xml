@@ -10,12 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_marginBottom="40dp"
         tools:listitem="@layout/fragment_item"/>
 
     <Button
         android:id="@+id/btnAddItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:text="Add Item"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
@@ -24,6 +29,8 @@
         android:id="@+id/etNewItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:hint="Enter a new Item"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
