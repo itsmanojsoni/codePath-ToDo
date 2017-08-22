@@ -143,7 +143,7 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
 
             AppDatabase database = AppDatabase.getDatabase(getContext());
             Log.d(TAG, "Button Clicked and summary is set to : "+task);
-            Task build = Task.builder().setId(taskId++).build();
+            Task build = Task.builder().setId(TaskIDGen.getTaskId()).build();
             database.taskModel().addTask(build);
             this.workingTask = build;
 
@@ -237,6 +237,14 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+                Log.d(TAG, "Delete Task Id : "+workingTask.id);
+                long id = workingTask.id;
+
+                AppDatabase database = AppDatabase.getDatabase(getContext());
+
+                database.taskModel().deleteTasks(workingTask);
 
             }
         });
