@@ -1,41 +1,97 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.codepath.simpletodo.MainActivity">
+    tools:context="com.codepath.simpletodo.MainActivity"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="16dp"
+        android:background="#00BFFF"
+        android:minHeight="?attr/actionBarSize">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#FF0000"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:background="#00BFFF"
+            android:layout_gravity="right"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/addItem"
+                android:text="Add"
+                android:layout_width="wrap_content"
+                android:textColor="#FF0000"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:visibility="visible"/>
+
+            <Button
+                android:id="@+id/editButton"
+                android:text="Edit"
+                android:layout_width="wrap_content"
+                android:textColor="#FF0000"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/deleteButton"
+                android:text="Delete"
+                android:layout_width="wrap_content"
+                android:textColor="#FF0000"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.Toolbar>
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:layout_alignBottom="@+id/toolbar"
         android:layout_marginBottom="40dp"
         tools:listitem="@layout/fragment_item"/>
 
-    <Button
-        android:id="@+id/btnAddItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        android:text="Add Item"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true" />
-    <EditText
-        android:id="@+id/etNewItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        android:hint="Enter a new Item"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/btnAddItem" />
+    <!--<Button-->
+        <!--android:id="@+id/btnAddItem"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginRight="16dp"-->
+        <!--android:layout_marginLeft="8dp"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:text="Add Item"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true" />-->
+    <!--<EditText-->
+        <!--android:id="@+id/etNewItem"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:hint="Enter a new Item"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_toLeftOf="@+id/btnAddItem" />-->
 
-</RelativeLayout>
+</LinearLayout>

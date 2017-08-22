@@ -78,7 +78,7 @@ public class TaskListFragment extends Fragment {
 
 
         Log.d(TAG, "Button was clicked");
-        final  EditText taskEditText = (EditText) view.findViewById(R.id.etNewItem);
+//        final  EditText taskEditText = (EditText) view.findViewById(R.id.etNewItem);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
 
@@ -92,36 +92,35 @@ public class TaskListFragment extends Fragment {
         adapter = new MyItemRecyclerViewAdapter(mListener);
         recyclerView.setAdapter(adapter);
 
-        Button button = (Button) view.findViewById(R.id.btnAddItem);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String task = String.valueOf(taskEditText.getText());
-                Log.d(TAG, "Task = "+task);
-
-                AppDatabase database = AppDatabase.getDatabase(getContext());
-//              Task build = Task.builder().setId(i).setSummary("Testing " + i).setDescription("More ..." + i).build();
-
-                Log.d(TAG, "Button Clicked and summary is set to : "+task);
-                Task build = Task.builder().setId(taskId++).setSummary(task).build();
-                database.taskModel().addTask(build);
-
-                allTaskList = database.taskModel().getAllTasks();
-                Log.d(TAG, "Adapter Update Data and allTaskList is : "+allTaskList.size());
-                singleTaskList.add(build);
-                adapter.updateData(allTaskList);
-
-                InputMethodManager inputManager =
-                        (InputMethodManager) getActivity().
-                                getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputManager.hideSoftInputFromWindow(
-                        getActivity().getCurrentFocus().getWindowToken(),
-                        InputMethodManager.HIDE_NOT_ALWAYS);
-                taskEditText.setText(null);
-
-            }
-        });
+//        Button button = (Button) view.findViewById(R.id.btnAddItem);
+//
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                String task = String.valueOf(taskEditText.getText());
+//                Log.d(TAG, "Task = "+task);
+//
+//                AppDatabase database = AppDatabase.getDatabase(getContext());
+//
+//                Log.d(TAG, "Button Clicked and summary is set to : "+task);
+//                Task build = Task.builder().setId(taskId++).setSummary(task).build();
+//                database.taskModel().addTask(build);
+//
+//                allTaskList = database.taskModel().getAllTasks();
+//                Log.d(TAG, "Adapter Update Data and allTaskList is : "+allTaskList.size());
+//                singleTaskList.add(build);
+//                adapter.updateData(allTaskList);
+//
+//                InputMethodManager inputManager =
+//                        (InputMethodManager) getActivity().
+//                                getSystemService(Context.INPUT_METHOD_SERVICE);
+//                inputManager.hideSoftInputFromWindow(
+//                        getActivity().getCurrentFocus().getWindowToken(),
+//                        InputMethodManager.HIDE_NOT_ALWAYS);
+//                taskEditText.setText(null);
+//
+//            }
+//        });
 
         return view;
     }

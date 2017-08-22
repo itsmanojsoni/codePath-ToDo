@@ -4,12 +4,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -35,6 +37,8 @@ public class TaskDetailNoEditFragment extends Fragment implements  OnItemSelecte
     private TextView description;
     private TextView taskStatus;
     private TextView priority;
+
+    private Button addButton;
 
     private static final String TAG = "TaskDetailFragment";
     private OnTaskNoEditFragmentInteractionListener mListener;
@@ -80,6 +84,20 @@ public class TaskDetailNoEditFragment extends Fragment implements  OnItemSelecte
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_task_detail_no_edit, container, false);
+        setHasOptionsMenu(true);
+
+//        Toolbar topToolBar = (Toolbar) view.findViewById(R.id.toolbar);
+//        topToolBar.setVisibility(View.GONE);
+//        Button addButton = (Button) view.findViewById(R.id.addItem);
+//        addButton.setVisibility(View.GONE);
+
+//        Button editButton = (Button) view.findViewById(R.id.editButton);
+//        editButton.setVisibility(View.VISIBLE);
+//
+//        Button deleteButton = (Button) view.findViewById(R.id.deleteButton);
+//        deleteButton.setVisibility(view.VISIBLE);
+
+
 
         summary = (TextView) view.findViewById(R.id.summary);
         description = (TextView) view.findViewById(R.id.description);
@@ -129,6 +147,7 @@ public class TaskDetailNoEditFragment extends Fragment implements  OnItemSelecte
 
         priority.setText(priorityText);
         taskStatus.setText(taskStatusText);
+
 
     }
 
