@@ -14,6 +14,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -153,6 +154,10 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_task_detail, container, false);
 
+        Button saveBtn = view.findViewById(R.id.btnSave);
+
+        Button deleteBtn = view.findViewById(R.id.btnDelete);
+
         summary = (EditText) view.findViewById(R.id.summary);
         description = (EditText) view.findViewById(R.id.description);
         priority = (Spinner) view.findViewById(R.id.prioritySpinner);
@@ -206,15 +211,34 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
             }
         });
 
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (mListener != null) {
+                    Log.d(TAG, "save button on click called");
+                    mListener.onTaskEditFragmentInteraction(workingTask, MainActivity.SAVE_TASK);
+                }
+
+            }
+        });
+
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onTaskEditFragmentInteraction(uri);
-        }
-    }
+//    // TODO: Rename method, update argument and hook method into UI event
+//    public void onButtonPressed(Uri uri) {
+//        if (mListener != null) {
+//            mListener.onTaskEditFragmentInteraction(uri);
+//        }
+//    }
 
     @Override
     public void onAttach(Context context) {
@@ -294,7 +318,7 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
      */
     public interface OnTaskEditFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onTaskEditFragmentInteraction(Uri uri);
+        void onTaskEditFragmentInteraction(Task currTask, int action);
     }
 
     private void updateDatabaseWithNewSummary(String summary) {
