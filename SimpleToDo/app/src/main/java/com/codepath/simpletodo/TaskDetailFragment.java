@@ -4,8 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -21,9 +19,7 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+
 import android.widget.TextView;
 
 
@@ -34,7 +30,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link TaskDetailFragment.OnFragmentInteractionListener} interface
+ * {@link OnTaskEditFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link TaskDetailFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -113,7 +109,7 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
     }
     private static final String TAG = "TaskDetailFragment";
 
-    private OnFragmentInteractionListener mListener;
+    private OnTaskEditFragmentInteractionListener mListener;
 
     public TaskDetailFragment() {
         // Required empty public constructor
@@ -216,18 +212,18 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onTaskEditFragmentInteraction(uri);
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnTaskEditFragmentInteractionListener) {
+            mListener = (OnTaskEditFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnTaskNoEditFragmentInteractionListener");
         }
     }
 
@@ -296,9 +292,9 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface OnTaskEditFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onTaskEditFragmentInteraction(Uri uri);
     }
 
     private void updateDatabaseWithNewSummary(String summary) {

@@ -9,10 +9,12 @@ import android.util.Log;
 
 
 public class MainActivity extends AppCompatActivity
-        implements TaskListFragment.OnListFragmentInteractionListener,TaskDetailFragment.OnFragmentInteractionListener{
+        implements TaskListFragment.OnListFragmentInteractionListener,TaskDetailFragment.OnTaskEditFragmentInteractionListener,
+TaskDetailNoEditFragment.OnTaskNoEditFragmentInteractionListener{
 
     private final String TODO_LIST_FRAGMENT_TAG = "TODO_LIST_FRAGMENT_TAG";
     private  final  String TODO_DETAIL_FRAGMENT_TAG = "TODO_DETAIL_FRAGMENT_TAG";
+    private  final  String TODO_DETAIL_NO_EDIT_FRAGMENT_TAG = "TODO_DETAIL_NO_EDIT_FRAGMENT_TAG";
     private final String TAG = "MainActivity";
 
     @Override
@@ -40,13 +42,25 @@ public class MainActivity extends AppCompatActivity
     public void onListFragmentInteraction(Task task) {
 
         Log.d(TAG, "Item Clicked");
-        TaskDetailFragment taskDetailFragment =
-                (TaskDetailFragment) getSupportFragmentManager().findFragmentByTag(TODO_DETAIL_FRAGMENT_TAG);
+//        TaskDetailFragment taskDetailFragment =
+//                (TaskDetailFragment) getSupportFragmentManager().findFragmentByTag(TODO_DETAIL_FRAGMENT_TAG);
+//
+//        if (taskDetailFragment == null) {
+//            taskDetailFragment = TaskDetailFragment.newInstance(null, null);
+//            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_LIST_FRAGMENT_TAG);
+//            fragmentTransaction.addToBackStack(null);
+//            fragmentTransaction.commit();
+//            taskDetailFragment.setData(task);
+//        }
+
+        TaskDetailNoEditFragment taskDetailFragment =
+                (TaskDetailNoEditFragment) getSupportFragmentManager().findFragmentByTag(TODO_DETAIL_NO_EDIT_FRAGMENT_TAG);
 
         if (taskDetailFragment == null) {
-            taskDetailFragment = TaskDetailFragment.newInstance(null, null);
+            taskDetailFragment = TaskDetailNoEditFragment.newInstance(null, null);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_LIST_FRAGMENT_TAG);
+            fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_DETAIL_NO_EDIT_FRAGMENT_TAG);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
             taskDetailFragment.setData(task);
@@ -54,8 +68,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onTaskEditFragmentInteraction(Uri uri) {
         Log.d(TAG, "On Fragment Interaction Detail View");
     }
 
+    @Override
+    public void onTaskNoEditFragmentInteraction(Uri uri) {
+        Log.d(TAG, "OnTaskNoEditFragmentInteraction");
+    }
 }
