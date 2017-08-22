@@ -49,6 +49,7 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
     private EditText summary;
     private EditText description;
     private Spinner taskStatus;
+    private static int taskId;
     private Spinner priority;
 
     public enum PriorityLevel {
@@ -136,7 +137,17 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
 
     public void setData(Task task) {
         Log.d(TAG, "Task is being set in the detail Fragment");
-        this.workingTask = task;
+        if (task != null) {
+            this.workingTask = task;
+        } else {
+
+            AppDatabase database = AppDatabase.getDatabase(getContext());
+            Log.d(TAG, "Button Clicked and summary is set to : "+task);
+            Task build = Task.builder().setId(taskId++).build();
+            database.taskModel().addTask(build);
+            this.workingTask = build;
+
+        }
     }
 
     @Override
@@ -164,7 +175,7 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
         taskStatus = (Spinner) view.findViewById(R.id.taskStatusSpinner);
 
 
-        summary.requestFocus();
+//        summary.requestFocus();
 
         summary.setOnTouchListener(new View.OnTouchListener() {
             @Override

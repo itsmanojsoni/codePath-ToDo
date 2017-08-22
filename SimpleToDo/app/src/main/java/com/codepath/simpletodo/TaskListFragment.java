@@ -22,6 +22,8 @@ import com.codepath.simpletodo.db.TaskDbHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.codepath.simpletodo.R.id.addItem;
+
 /**
  * A fragment representing a list of Items.
  * <p/>
@@ -80,6 +82,8 @@ public class TaskListFragment extends Fragment {
         Log.d(TAG, "Button was clicked");
 //        final  EditText taskEditText = (EditText) view.findViewById(R.id.etNewItem);
 
+        Button addButton = view.findViewById(R.id.addItem);
+
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
 
         Context context = view.getContext();
@@ -121,6 +125,15 @@ public class TaskListFragment extends Fragment {
 //
 //            }
 //        });
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener != null) {
+                    mListener.onListFragmentInteraction(null);
+                }
+            }
+        });
 
         return view;
     }

@@ -47,36 +47,49 @@ TaskDetailNoEditFragment.OnTaskNoEditFragmentInteractionListener{
     public void onListFragmentInteraction(Task task) {
 
         Log.d(TAG, "Item Clicked");
-//        TaskDetailFragment taskDetailFragment =
-//                (TaskDetailFragment) getSupportFragmentManager().findFragmentByTag(TODO_DETAIL_FRAGMENT_TAG);
-//
-//        if (taskDetailFragment == null) {
-//            taskDetailFragment = TaskDetailFragment.newInstance(null, null);
-//            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//            fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_LIST_FRAGMENT_TAG);
-//            fragmentTransaction.addToBackStack(null);
-//            fragmentTransaction.commit();
-//            taskDetailFragment.setData(task);
-//        }
 
-        TaskDetailNoEditFragment taskDetailFragment =
-                (TaskDetailNoEditFragment) getSupportFragmentManager().findFragmentByTag(TODO_DETAIL_NO_EDIT_FRAGMENT_TAG);
+        if (task != null) {
+            TaskDetailNoEditFragment taskDetailFragment =
+                    (TaskDetailNoEditFragment) getSupportFragmentManager().findFragmentByTag(TODO_DETAIL_NO_EDIT_FRAGMENT_TAG);
 
-        if (taskDetailFragment == null) {
-            taskDetailFragment = TaskDetailNoEditFragment.newInstance(null, null);
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_DETAIL_NO_EDIT_FRAGMENT_TAG);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-            taskDetailFragment.setData(task);
+            if (taskDetailFragment == null) {
+                taskDetailFragment = TaskDetailNoEditFragment.newInstance(null, null);
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_DETAIL_NO_EDIT_FRAGMENT_TAG);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                taskDetailFragment.setData(task);
+            } else {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_DETAIL_NO_EDIT_FRAGMENT_TAG);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                taskDetailFragment.setData(task);
+            }
+
+
         } else {
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_DETAIL_NO_EDIT_FRAGMENT_TAG);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-            taskDetailFragment.setData(task);
-        }
 
+            TaskDetailFragment taskDetailFragment =
+                    (TaskDetailFragment) getSupportFragmentManager().findFragmentByTag(TODO_DETAIL_FRAGMENT_TAG);
+
+            if (taskDetailFragment == null) {
+                taskDetailFragment = TaskDetailFragment.newInstance(null, null);
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_DETAIL_FRAGMENT_TAG);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                taskDetailFragment.setData(null);
+            } else {
+
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_DETAIL_FRAGMENT_TAG);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                taskDetailFragment.setData(null);
+
+            }
+        }
     }
 
     @Override
