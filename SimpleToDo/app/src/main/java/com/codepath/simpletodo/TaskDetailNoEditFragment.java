@@ -86,16 +86,29 @@ public class TaskDetailNoEditFragment extends Fragment implements  OnItemSelecte
         View view =  inflater.inflate(R.layout.fragment_task_detail_no_edit, container, false);
         setHasOptionsMenu(true);
 
-//        Toolbar topToolBar = (Toolbar) view.findViewById(R.id.toolbar);
-//        topToolBar.setVisibility(View.GONE);
-//        Button addButton = (Button) view.findViewById(R.id.addItem);
-//        addButton.setVisibility(View.GONE);
 
-//        Button editButton = (Button) view.findViewById(R.id.editButton);
-//        editButton.setVisibility(View.VISIBLE);
-//
-//        Button deleteButton = (Button) view.findViewById(R.id.deleteButton);
-//        deleteButton.setVisibility(view.VISIBLE);
+        Button editButton =  view.findViewById(R.id.btnEdit);
+
+        Button deleteButton =  view.findViewById(R.id.btnDelete);
+
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (mListener != null) {
+                    mListener.onTaskNoEditFragmentInteraction(workingTask);
+                }
+
+            }
+        });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "Delete the task button clicked");
+            }
+        });
 
 
 
@@ -107,12 +120,12 @@ public class TaskDetailNoEditFragment extends Fragment implements  OnItemSelecte
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onTaskNoEditFragmentInteraction(uri);
-        }
-    }
+//    // TODO: Rename method, update argument and hook method into UI event
+//    public void onButtonPressed(Uri uri) {
+//        if (mListener != null) {
+//            mListener.onTaskNoEditFragmentInteraction(uri);
+//        }
+//    }
 
     @Override
     public void onAttach(Context context) {
@@ -197,7 +210,7 @@ public class TaskDetailNoEditFragment extends Fragment implements  OnItemSelecte
      */
     public interface OnTaskNoEditFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onTaskNoEditFragmentInteraction(Uri uri);
+        void onTaskNoEditFragmentInteraction(Task currTask);
     }
 
     private void updateDatabaseWithNewSummary(String summary) {

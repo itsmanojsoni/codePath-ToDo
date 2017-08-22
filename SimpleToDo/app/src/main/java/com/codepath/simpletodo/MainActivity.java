@@ -80,7 +80,21 @@ TaskDetailNoEditFragment.OnTaskNoEditFragmentInteractionListener{
     }
 
     @Override
-    public void onTaskNoEditFragmentInteraction(Uri uri) {
+    public void onTaskNoEditFragmentInteraction(Task currTask) {
         Log.d(TAG, "OnTaskNoEditFragmentInteraction");
+
+        TaskDetailFragment taskDetailFragment =
+        (TaskDetailFragment) getSupportFragmentManager().findFragmentByTag(TODO_DETAIL_FRAGMENT_TAG);
+
+        if (taskDetailFragment == null) {
+            taskDetailFragment = TaskDetailFragment.newInstance(null, null);
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_LIST_FRAGMENT_TAG);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+            taskDetailFragment.setData(currTask);
+        }
+
+
     }
 }
