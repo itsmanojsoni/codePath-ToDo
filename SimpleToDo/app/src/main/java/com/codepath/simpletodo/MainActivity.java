@@ -37,6 +37,9 @@ TaskDetailNoEditFragment.OnTaskNoEditFragmentInteractionListener{
         } else {
 
             Log.d("MainActivity", "list Fragment not null");
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.listContainer, listFragment, TODO_LIST_FRAGMENT_TAG);
+            fragmentTransaction.commit();
         }
     }
 
@@ -67,23 +70,23 @@ TaskDetailNoEditFragment.OnTaskNoEditFragmentInteractionListener{
 
         } else {
 
-            TaskDetailEditFragment taskDetailFragment =
+            TaskDetailEditFragment taskDetailEditFragment =
                     (TaskDetailEditFragment) getSupportFragmentManager().findFragmentByTag(TODO_DETAIL_FRAGMENT_TAG);
 
-            if (taskDetailFragment == null) {
-                taskDetailFragment = TaskDetailEditFragment.newInstance(null, null);
+            if (taskDetailEditFragment == null) {
+                taskDetailEditFragment = TaskDetailEditFragment.newInstance(null, null);
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_DETAIL_FRAGMENT_TAG);
+                fragmentTransaction.replace(R.id.listContainer, taskDetailEditFragment, TODO_DETAIL_FRAGMENT_TAG);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-                taskDetailFragment.setData(null);
+                taskDetailEditFragment.setData(null);
             } else {
 
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_DETAIL_FRAGMENT_TAG);
+                fragmentTransaction.replace(R.id.listContainer, taskDetailEditFragment, TODO_DETAIL_FRAGMENT_TAG);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-                taskDetailFragment.setData(null);
+                taskDetailEditFragment.setData(null);
 
             }
         }
@@ -135,27 +138,48 @@ TaskDetailNoEditFragment.OnTaskNoEditFragmentInteractionListener{
     }
 
     @Override
-    public void onTaskNoEditFragmentInteraction(Task currTask) {
+    public void onTaskNoEditFragmentInteraction(Task currTask, int action) {
         Log.d(TAG, "OnTaskNoEditFragmentInteraction");
 
-        TaskDetailEditFragment taskDetailFragment =
-        (TaskDetailEditFragment) getSupportFragmentManager().findFragmentByTag(TODO_DETAIL_FRAGMENT_TAG);
+        if (action == EDIT_TASK) {
 
-        if (taskDetailFragment == null) {
-            taskDetailFragment = TaskDetailEditFragment.newInstance(null, null);
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_DETAIL_FRAGMENT_TAG);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-            taskDetailFragment.setData(currTask);
+            TaskDetailEditFragment taskDetailEditFragment =
+                    (TaskDetailEditFragment) getSupportFragmentManager().findFragmentByTag(TODO_DETAIL_FRAGMENT_TAG);
+
+            if (taskDetailEditFragment == null) {
+                taskDetailEditFragment = TaskDetailEditFragment.newInstance(null, null);
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.listContainer, taskDetailEditFragment, TODO_DETAIL_FRAGMENT_TAG);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                taskDetailEditFragment.setData(currTask);
+            } else {
+
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.listContainer, taskDetailEditFragment, TODO_DETAIL_FRAGMENT_TAG);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                taskDetailEditFragment.setData(currTask);
+
+            }
         } else {
+            // delete Task
+            TaskListFragment listFragment =
+                    (TaskListFragment) getSupportFragmentManager().findFragmentByTag(TODO_LIST_FRAGMENT_TAG);
 
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_DETAIL_FRAGMENT_TAG);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-            taskDetailFragment.setData(currTask);
+            if (listFragment == null) {
+                Log.d("MainActivity", "gListFragment is null");
+                listFragment = TaskListFragment.newInstance(1);
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.listContainer, listFragment, TODO_LIST_FRAGMENT_TAG);
+                fragmentTransaction.commit();
+            } else {
 
+                Log.d("MainActivity", "list Fragment not null");
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.listContainer, listFragment, TODO_LIST_FRAGMENT_TAG);
+                fragmentTransaction.commit();
+            }
         }
 
 

@@ -97,7 +97,7 @@ public class TaskDetailNoEditFragment extends Fragment implements  OnItemSelecte
             public void onClick(View view) {
 
                 if (mListener != null) {
-                    mListener.onTaskNoEditFragmentInteraction(workingTask);
+                    mListener.onTaskNoEditFragmentInteraction(workingTask,MainActivity.EDIT_TASK);
                 }
 
             }
@@ -107,6 +107,12 @@ public class TaskDetailNoEditFragment extends Fragment implements  OnItemSelecte
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Delete the task button clicked");
+
+                AppDatabase database = AppDatabase.getDatabase(getContext());
+
+                database.taskModel().deleteTasks(workingTask);
+
+                mListener.onTaskNoEditFragmentInteraction(workingTask, MainActivity.DELETE_TASK);
             }
         });
 
@@ -210,7 +216,7 @@ public class TaskDetailNoEditFragment extends Fragment implements  OnItemSelecte
      */
     public interface OnTaskNoEditFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onTaskNoEditFragmentInteraction(Task currTask);
+        void onTaskNoEditFragmentInteraction(Task currTask, int action);
     }
 
     private void updateDatabaseWithNewSummary(String summary) {

@@ -65,9 +65,6 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
 
     private class TaskStatusSelection implements OnItemSelectedListener{
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-            Log.d(TAG, "View is : "+view);
-            Log.d(TAG, "Parent is :"+parent);
-            Log.d(TAG, "Id is :"+id);
             String taskStatusSelection = (String)parent.getItemAtPosition(pos);
 
             Log.d(TAG, "Selected task Status is : "+taskStatusSelection);
@@ -88,9 +85,6 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
 
 
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-            Log.d(TAG, "View is : "+view);
-            Log.d(TAG, "Parent is :"+parent);
-            Log.d(TAG, "Id is :"+id);
             String selectedPriority = (String)parent.getItemAtPosition(pos);
 
             Log.d(TAG, "Selected Priority is : "+selectedPriority);
@@ -141,7 +135,6 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
         } else {
 
             AppDatabase database = AppDatabase.getDatabase(getContext());
-            Log.d(TAG, "Button Clicked and summary is set to : "+task);
             Task build = Task.builder().setId(TaskIDGen.getTaskId()).build();
             database.taskModel().addTask(build);
             this.workingTask = build;
@@ -172,9 +165,6 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
         description = (EditText) view.findViewById(R.id.description);
         priority = (Spinner) view.findViewById(R.id.prioritySpinner);
         taskStatus = (Spinner) view.findViewById(R.id.taskStatusSpinner);
-
-
-//        summary.requestFocus();
 
         summary.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -253,13 +243,6 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
         return view;
     }
 
-//    // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onTaskEditFragmentInteraction(uri);
-//        }
-//    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -308,12 +291,7 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
 
-        Log.d(TAG, "View is : "+view);
-        Log.d(TAG, "Parent is :"+parent);
-        Log.d(TAG, "Id is :"+id);
         String selectedPriority = (String)parent.getItemAtPosition(pos);
-
-        Log.d(TAG, "Selected Priority is : "+selectedPriority);
         AppDatabase database = AppDatabase.getDatabase(getContext());
 
         Task newTask = database.taskModel().getTask(workingTask.id);
@@ -414,7 +392,6 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
         taskStatus.setOnItemSelectedListener(new TaskStatusSelection() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 String taskStatusSelection = (String)parent.getItemAtPosition(pos);
-                Log.d(TAG, "Finally, Selected task Status is : "+taskStatusSelection);
                 AppDatabase database = AppDatabase.getDatabase(getContext());
 
                 Task newTask = database.taskModel().getTask(workingTask.id);
