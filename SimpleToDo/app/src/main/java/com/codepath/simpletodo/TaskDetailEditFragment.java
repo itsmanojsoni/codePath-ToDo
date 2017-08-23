@@ -1,7 +1,6 @@
 package com.codepath.simpletodo;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -33,10 +32,10 @@ import android.widget.AdapterView.OnItemSelectedListener;
  * Activities that contain this fragment must implement the
  * {@link OnTaskEditFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link TaskDetailFragment#newInstance} factory method to
+ * Use the {@link TaskDetailEditFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TaskDetailFragment extends Fragment implements  OnItemSelectedListener{
+public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -109,11 +108,11 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
 
 
     }
-    private static final String TAG = "TaskDetailFragment";
+    private static final String TAG = "TaskDetailEditFragment";
 
     private OnTaskEditFragmentInteractionListener mListener;
 
-    public TaskDetailFragment() {
+    public TaskDetailEditFragment() {
         // Required empty public constructor
     }
 
@@ -123,11 +122,11 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment TaskDetailFragment.
+     * @return A new instance of fragment TaskDetailEditFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TaskDetailFragment newInstance(String param1, String param2) {
-        TaskDetailFragment fragment = new TaskDetailFragment();
+    public static TaskDetailEditFragment newInstance(String param1, String param2) {
+        TaskDetailEditFragment fragment = new TaskDetailEditFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

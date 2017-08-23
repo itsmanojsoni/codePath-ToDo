@@ -1,17 +1,14 @@
 package com.codepath.simpletodo;
 
-import android.net.Uri;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 
 
 public class MainActivity extends AppCompatActivity
-        implements TaskListFragment.OnListFragmentInteractionListener,TaskDetailFragment.OnTaskEditFragmentInteractionListener,
+        implements TaskListFragment.OnListFragmentInteractionListener,TaskDetailEditFragment.OnTaskEditFragmentInteractionListener,
 TaskDetailNoEditFragment.OnTaskNoEditFragmentInteractionListener{
 
     private final String TODO_LIST_FRAGMENT_TAG = "TODO_LIST_FRAGMENT_TAG";
@@ -70,11 +67,11 @@ TaskDetailNoEditFragment.OnTaskNoEditFragmentInteractionListener{
 
         } else {
 
-            TaskDetailFragment taskDetailFragment =
-                    (TaskDetailFragment) getSupportFragmentManager().findFragmentByTag(TODO_DETAIL_FRAGMENT_TAG);
+            TaskDetailEditFragment taskDetailFragment =
+                    (TaskDetailEditFragment) getSupportFragmentManager().findFragmentByTag(TODO_DETAIL_FRAGMENT_TAG);
 
             if (taskDetailFragment == null) {
-                taskDetailFragment = TaskDetailFragment.newInstance(null, null);
+                taskDetailFragment = TaskDetailEditFragment.newInstance(null, null);
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_DETAIL_FRAGMENT_TAG);
                 fragmentTransaction.addToBackStack(null);
@@ -141,11 +138,11 @@ TaskDetailNoEditFragment.OnTaskNoEditFragmentInteractionListener{
     public void onTaskNoEditFragmentInteraction(Task currTask) {
         Log.d(TAG, "OnTaskNoEditFragmentInteraction");
 
-        TaskDetailFragment taskDetailFragment =
-        (TaskDetailFragment) getSupportFragmentManager().findFragmentByTag(TODO_DETAIL_FRAGMENT_TAG);
+        TaskDetailEditFragment taskDetailFragment =
+        (TaskDetailEditFragment) getSupportFragmentManager().findFragmentByTag(TODO_DETAIL_FRAGMENT_TAG);
 
         if (taskDetailFragment == null) {
-            taskDetailFragment = TaskDetailFragment.newInstance(null, null);
+            taskDetailFragment = TaskDetailEditFragment.newInstance(null, null);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_DETAIL_FRAGMENT_TAG);
             fragmentTransaction.addToBackStack(null);

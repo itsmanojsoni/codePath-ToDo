@@ -53,7 +53,7 @@ public class TaskDetailNoEditFragment extends Fragment implements  OnItemSelecte
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment TaskDetailFragment.
+     * @return A new instance of fragment TaskDetailEditFragment.
      */
     // TODO: Rename and change types and number of parameters
     public static TaskDetailNoEditFragment newInstance(String param1, String param2) {

@@ -1,6 +1,5 @@
 package com.codepath.simpletodo;
 
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,8 +11,6 @@ import com.codepath.simpletodo.TaskListFragment.OnListFragmentInteractionListene
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.webkit.WebSettings.RenderPriority.HIGH;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
@@ -73,7 +70,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             Log.d(TAG, "Priority = "+priority);
             holder.priority.setText(priority);
 
-            TaskDetailFragment.PriorityLevel priorityLevel =  TaskDetailFragment.PriorityLevel.valueOf(priority);
+            TaskDetailEditFragment.PriorityLevel priorityLevel =  TaskDetailEditFragment.PriorityLevel.valueOf(priority);
 
             switch (priorityLevel) {
                 case HIGH:
