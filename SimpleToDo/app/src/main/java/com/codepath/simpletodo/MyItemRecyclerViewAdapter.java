@@ -29,14 +29,9 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         mListener = listener;
     }
 
-//    public void setData(List<DummyItem> items) {
-//        this.mValues = items;
-//    }
 
     public void updateData(List<Task> taskList) {
-//        this.taskList.addAll(taskList);
         this.taskList = taskList;
-        Log.d(TAG, "UPdate Data and task LIst Size = "+taskList.size());
         notifyDataSetChanged();
     }
 
@@ -49,14 +44,9 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-//        holder.mItem = mValues.get(position);
-
 
         final Task task = taskList.get(position);
         String summary = taskList.get(position).summary;
-
-        Log.d(TAG, "OnBindViewHolder and Summary is : "+summary);
-
 
         if (summary != null && !summary.isEmpty()) {
             holder.titleView.setText(summary);
@@ -64,12 +54,8 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
         String priority = taskList.get(position).priority;
 
-
-
         if (priority != null && !priority.isEmpty()) {
-            Log.d(TAG, "Priority = "+priority);
             holder.priority.setText(priority);
-
             TaskDetailEditFragment.PriorityLevel priorityLevel =  TaskDetailEditFragment.PriorityLevel.valueOf(priority);
 
             switch (priorityLevel) {
@@ -80,7 +66,6 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                     holder.priority.setTextColor(0xFFFFA500);
                     break;
                 case LOW:
-                    Log.d(TAG, "set Text Color to Blue");
                     holder.priority.setTextColor(0xFF00BFFF);
                     break;
                 default:
@@ -113,14 +98,11 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         public TextView titleView;
         public TextView descriptionView;
         public TextView priority;
-//        public DummyItem mItem;
-
         public ViewHolder(View view) {
             super(view);
             mView = view;
             titleView = (TextView) view.findViewById(R.id.task);
             priority = (TextView) view.findViewById(R.id.priority);
-//            descriptionView = (TextView) view.findViewById(R.id.priority);
         }
 
         @Override

@@ -95,7 +95,6 @@ public class TaskDetailNoEditFragment extends Fragment implements  OnItemSelecte
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (mListener != null) {
                     mListener.onTaskNoEditFragmentInteraction(workingTask,MainActivity.EDIT_TASK);
                 }
@@ -106,12 +105,9 @@ public class TaskDetailNoEditFragment extends Fragment implements  OnItemSelecte
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "Delete the task button clicked");
 
                 AppDatabase database = AppDatabase.getDatabase(getContext());
-
                 database.taskModel().deleteTasks(workingTask);
-
                 mListener.onTaskNoEditFragmentInteraction(workingTask, MainActivity.DELETE_TASK);
             }
         });
@@ -125,13 +121,6 @@ public class TaskDetailNoEditFragment extends Fragment implements  OnItemSelecte
 
         return view;
     }
-
-//    // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onTaskNoEditFragmentInteraction(uri);
-//        }
-//    }
 
     @Override
     public void onAttach(Context context) {
@@ -149,13 +138,10 @@ public class TaskDetailNoEditFragment extends Fragment implements  OnItemSelecte
 
         super.onResume();
 
-        Log.d(TAG, "Task is already set: task "+workingTask.summary);
-
         String summaryText = workingTask.getSummary();
         String descriptionText = workingTask.getDescription();
         String priorityText = workingTask.getPriority();
         String taskStatusText = workingTask.getTaskStatus();
-
 
         summary.setText(summaryText);
         if (workingTask.description != null) {
@@ -166,14 +152,11 @@ public class TaskDetailNoEditFragment extends Fragment implements  OnItemSelecte
 
         priority.setText(priorityText);
         taskStatus.setText(taskStatusText);
-
-
     }
 
     @Override
     public void onPause() {
         super.onPause();
-
     }
 
     @Override
@@ -185,13 +168,7 @@ public class TaskDetailNoEditFragment extends Fragment implements  OnItemSelecte
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
-
-        Log.d(TAG, "View is : "+view);
-        Log.d(TAG, "Parent is :"+parent);
-        Log.d(TAG, "Id is :"+id);
         String selectedPriority = (String)parent.getItemAtPosition(pos);
-
-        Log.d(TAG, "Selected Priority is : "+selectedPriority);
         AppDatabase database = AppDatabase.getDatabase(getContext());
 
         Task newTask = database.taskModel().getTask(workingTask.id);
@@ -218,20 +195,4 @@ public class TaskDetailNoEditFragment extends Fragment implements  OnItemSelecte
         // TODO: Update argument type and name
         void onTaskNoEditFragmentInteraction(Task currTask, int action);
     }
-
-    private void updateDatabaseWithNewSummary(String summary) {
-        AppDatabase database = AppDatabase.getDatabase(getContext());
-        Task newTask = database.taskModel().getTask(workingTask.id);
-        newTask.setSummary(summary);
-        database.taskModel().updateTask(newTask);
-    }
-
-    private void updateDatabaseWithNewDescription(String description) {
-        AppDatabase database = AppDatabase.getDatabase(getContext());
-        Task newTask = database.taskModel().getTask(workingTask.id);
-        newTask.setDescription(description);
-        database.taskModel().updateTask(newTask);
-    }
-
-
 }

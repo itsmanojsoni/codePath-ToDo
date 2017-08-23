@@ -26,7 +26,6 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -35,7 +34,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
  * Use the {@link TaskDetailEditFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedListener{
+public class TaskDetailEditFragment extends Fragment implements OnItemSelectedListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -63,11 +62,11 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
         Done
     }
 
-    private class TaskStatusSelection implements OnItemSelectedListener{
+    private class TaskStatusSelection implements OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-            String taskStatusSelection = (String)parent.getItemAtPosition(pos);
+            String taskStatusSelection = (String) parent.getItemAtPosition(pos);
 
-            Log.d(TAG, "Selected task Status is : "+taskStatusSelection);
+            Log.d(TAG, "Selected task Status is : " + taskStatusSelection);
             AppDatabase database = AppDatabase.getDatabase(getContext());
 
             Task newTask = database.taskModel().getTask(workingTask.id);
@@ -81,13 +80,13 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
         }
     }
 
-    private class PrioritySelection implements OnItemSelectedListener{
+    private class PrioritySelection implements OnItemSelectedListener {
 
 
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-            String selectedPriority = (String)parent.getItemAtPosition(pos);
+            String selectedPriority = (String) parent.getItemAtPosition(pos);
 
-            Log.d(TAG, "Selected Priority is : "+selectedPriority);
+            Log.d(TAG, "Selected Priority is : " + selectedPriority);
             AppDatabase database = AppDatabase.getDatabase(getContext());
 
             Task newTask = database.taskModel().getTask(workingTask.id);
@@ -102,6 +101,7 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
 
 
     }
+
     private static final String TAG = "TaskDetailEditFragment";
 
     private OnTaskEditFragmentInteractionListener mListener;
@@ -134,6 +134,7 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
             this.workingTask = task;
         } else {
 
+            // create a new task if the task is null
             AppDatabase database = AppDatabase.getDatabase(getContext());
             Task build = Task.builder().setId(TaskIDGen.getTaskId()).build();
             database.taskModel().addTask(build);
@@ -155,7 +156,7 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_task_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_task_detail, container, false);
 
         Button saveBtn = view.findViewById(R.id.btnSave);
 
@@ -178,7 +179,6 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
         summary.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                Log.d(TAG, "SetOnEditorAction action ID = "+actionId);
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     String text = v.getText().toString();
                     updateDatabaseWithNewSummary(text);
@@ -223,7 +223,6 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
                 updateDatabaseWithNewDescription(descriptionText);
 
                 if (mListener != null) {
-                    Log.d(TAG, "save button on click called");
                     mListener.onTaskEditFragmentInteraction(workingTask, MainActivity.SAVE_TASK);
                 }
 
@@ -235,7 +234,7 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
             public void onClick(View view) {
 
 
-                Log.d(TAG, "Delete Task Id : "+workingTask.id);
+                Log.d(TAG, "Delete Task Id : " + workingTask.id);
                 long id = workingTask.id;
 
                 AppDatabase database = AppDatabase.getDatabase(getContext());
@@ -265,13 +264,9 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
     public void onResume() {
 
         super.onResume();
-
-        Log.d(TAG, "Task is already set: task "+workingTask.summary);
         summary.setText(workingTask.summary);
         if (workingTask.description != null) {
             description.setText(workingTask.description);
-        } else {
-
         }
 
         String priority = workingTask.getPriority();
@@ -285,7 +280,6 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
     @Override
     public void onPause() {
         super.onPause();
-
     }
 
     @Override
@@ -297,8 +291,7 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
-
-        String selectedPriority = (String)parent.getItemAtPosition(pos);
+        String selectedPriority = (String) parent.getItemAtPosition(pos);
         AppDatabase database = AppDatabase.getDatabase(getContext());
 
         Task newTask = database.taskModel().getTask(workingTask.id);
@@ -344,9 +337,9 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
         // Spinner click listener
         priority.setOnItemSelectedListener(new PrioritySelection() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                String selectedPriority = (String)parent.getItemAtPosition(pos);
+                String selectedPriority = (String) parent.getItemAtPosition(pos);
 
-                Log.d(TAG, "Finally, Selected Priority is : "+selectedPriority);
+                Log.d(TAG, "Finally, Selected Priority is : " + selectedPriority);
                 AppDatabase database = AppDatabase.getDatabase(getContext());
 
                 Task newTask = database.taskModel().getTask(workingTask.id);
@@ -354,7 +347,7 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
                 database.taskModel().updateTask(newTask);
             }
         });
-        List<String> priorityList  = new ArrayList<>();
+        List<String> priorityList = new ArrayList<>();
         priorityList.add(PriorityLevel.HIGH.name());
         priorityList.add(PriorityLevel.MEDIUM.name());
         priorityList.add(PriorityLevel.LOW.name());
@@ -398,7 +391,7 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
     private void addSpinnerForStatus() {
         taskStatus.setOnItemSelectedListener(new TaskStatusSelection() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                String taskStatusSelection = (String)parent.getItemAtPosition(pos);
+                String taskStatusSelection = (String) parent.getItemAtPosition(pos);
                 AppDatabase database = AppDatabase.getDatabase(getContext());
 
                 Task newTask = database.taskModel().getTask(workingTask.id);
@@ -406,7 +399,7 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
                 database.taskModel().updateTask(newTask);
             }
         });
-        List<String> taskStatusList  = new ArrayList<>();
+        List<String> taskStatusList = new ArrayList<>();
         taskStatusList.add(TaskStatus.NotStarted.name());
         taskStatusList.add(TaskStatus.InProgress.name());
         taskStatusList.add(TaskStatus.Done.name());

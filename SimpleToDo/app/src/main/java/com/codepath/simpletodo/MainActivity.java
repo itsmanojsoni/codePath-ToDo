@@ -29,14 +29,11 @@ TaskDetailNoEditFragment.OnTaskNoEditFragmentInteractionListener{
                 (TaskListFragment) getSupportFragmentManager().findFragmentByTag(TODO_LIST_FRAGMENT_TAG);
 
         if (listFragment == null) {
-            Log.d("MainActivity", "gListFragment is null");
             listFragment = TaskListFragment.newInstance(1);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.listContainer, listFragment, TODO_LIST_FRAGMENT_TAG);
             fragmentTransaction.commit();
         } else {
-
-            Log.d("MainActivity", "list Fragment not null");
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.listContainer, listFragment, TODO_LIST_FRAGMENT_TAG);
             fragmentTransaction.commit();
@@ -45,8 +42,6 @@ TaskDetailNoEditFragment.OnTaskNoEditFragmentInteractionListener{
 
     @Override
     public void onListFragmentInteraction(Task task) {
-
-        Log.d(TAG, "Item Clicked");
 
         if (task != null) {
             TaskDetailNoEditFragment taskDetailNoEditFragment =
@@ -94,22 +89,18 @@ TaskDetailNoEditFragment.OnTaskNoEditFragmentInteractionListener{
 
     @Override
     public void onTaskEditFragmentInteraction(Task currTask, int action) {
-        Log.d(TAG, "On Fragment Interaction Detail View");
+
         if (action == SAVE_TASK) {
 
-            Log.d(TAG, "Save Task Call back is in action");
             TaskListFragment listFragment =
                     (TaskListFragment) getSupportFragmentManager().findFragmentByTag(TODO_LIST_FRAGMENT_TAG);
 
             if (listFragment == null) {
-                Log.d("MainActivity", "gListFragment is null");
                 listFragment = TaskListFragment.newInstance(1);
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.listContainer, listFragment, TODO_LIST_FRAGMENT_TAG);
                 fragmentTransaction.commit();
             } else {
-
-                Log.d("MainActivity", "list Fragment not null");
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.listContainer, listFragment, TODO_LIST_FRAGMENT_TAG);
                 fragmentTransaction.commit();
@@ -121,14 +112,11 @@ TaskDetailNoEditFragment.OnTaskNoEditFragmentInteractionListener{
                     (TaskListFragment) getSupportFragmentManager().findFragmentByTag(TODO_LIST_FRAGMENT_TAG);
 
             if (listFragment == null) {
-                Log.d("MainActivity", "gListFragment is null");
                 listFragment = TaskListFragment.newInstance(1);
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.listContainer, listFragment, TODO_LIST_FRAGMENT_TAG);
                 fragmentTransaction.commit();
             } else {
-
-                Log.d("MainActivity", "list Fragment not null");
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.listContainer, listFragment, TODO_LIST_FRAGMENT_TAG);
                 fragmentTransaction.commit();
@@ -139,10 +127,8 @@ TaskDetailNoEditFragment.OnTaskNoEditFragmentInteractionListener{
 
     @Override
     public void onTaskNoEditFragmentInteraction(Task currTask, int action) {
-        Log.d(TAG, "OnTaskNoEditFragmentInteraction");
 
         if (action == EDIT_TASK) {
-
             TaskDetailEditFragment taskDetailEditFragment =
                     (TaskDetailEditFragment) getSupportFragmentManager().findFragmentByTag(TODO_DETAIL_FRAGMENT_TAG);
 
@@ -168,14 +154,12 @@ TaskDetailNoEditFragment.OnTaskNoEditFragmentInteractionListener{
                     (TaskListFragment) getSupportFragmentManager().findFragmentByTag(TODO_LIST_FRAGMENT_TAG);
 
             if (listFragment == null) {
-                Log.d("MainActivity", "gListFragment is null");
                 listFragment = TaskListFragment.newInstance(1);
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.listContainer, listFragment, TODO_LIST_FRAGMENT_TAG);
                 fragmentTransaction.commit();
             } else {
 
-                Log.d("MainActivity", "list Fragment not null");
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.listContainer, listFragment, TODO_LIST_FRAGMENT_TAG);
                 fragmentTransaction.commit();

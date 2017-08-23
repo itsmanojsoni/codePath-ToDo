@@ -19,15 +19,12 @@ public class Task {
     public String done;
     public String priority;
 
-//    public Date dueDate;
-
     public Task(long id, String summary, String description, String done, String priority) {
         this.id = id;
         this.summary = summary;
         this.description = description;
         this.done = done;
         this.priority = priority;
-//        this.dueDate = dueDate;
     }
 
 
@@ -75,7 +72,6 @@ public class Task {
         private String description = "";
         private String done = "NotStarted";
         private String priority = "LOW";
-//        private Date dueDate;
 
         public TaskBuilder setId(long id) {
             this.id = id;
@@ -101,11 +97,6 @@ public class Task {
             this.priority = priority;
             return this;
         }
-
-//        public TaskBuilder setDueDate(Date dueDate) {
-//            this.dueDate = new Date(dueDate.getTime());
-//            return this;
-//        }
 
         public Task build() {
             return new Task(id, summary, description, done, priority);

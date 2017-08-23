@@ -3,18 +3,14 @@ package com.codepath.simpletodo;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.codepath.simpletodo.db.TaskDbHelper;
 
@@ -22,7 +18,6 @@ import com.codepath.simpletodo.db.TaskDbHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.codepath.simpletodo.R.id.addItem;
 
 /**
  * A fragment representing a list of Items.
@@ -39,11 +34,8 @@ public class TaskListFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
     private static final String TAG = "ItemFrgament";
     private TaskDbHelper mHelper;
-    private List<String> taskList = new ArrayList<>();
     MyItemRecyclerViewAdapter adapter;
-    private int taskId;
     private List<Task> allTaskList = new ArrayList<>();
-    private List<Task> singleTaskList = new ArrayList<>();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -77,11 +69,6 @@ public class TaskListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main, container, false);
-
-
-        Log.d(TAG, "Button was clicked");
-//        final  EditText taskEditText = (EditText) view.findViewById(R.id.etNewItem);
-
         Button addButton = view.findViewById(R.id.addItem);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
@@ -95,36 +82,6 @@ public class TaskListFragment extends Fragment {
 
         adapter = new MyItemRecyclerViewAdapter(mListener);
         recyclerView.setAdapter(adapter);
-
-//        Button button = (Button) view.findViewById(R.id.btnAddItem);
-//
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String task = String.valueOf(taskEditText.getText());
-//                Log.d(TAG, "Task = "+task);
-//
-//                AppDatabase database = AppDatabase.getDatabase(getContext());
-//
-//                Log.d(TAG, "Button Clicked and summary is set to : "+task);
-//                Task build = Task.builder().setId(taskId++).setSummary(task).build();
-//                database.taskModel().addTask(build);
-//
-//                allTaskList = database.taskModel().getAllTasks();
-//                Log.d(TAG, "Adapter Update Data and allTaskList is : "+allTaskList.size());
-//                singleTaskList.add(build);
-//                adapter.updateData(allTaskList);
-//
-//                InputMethodManager inputManager =
-//                        (InputMethodManager) getActivity().
-//                                getSystemService(Context.INPUT_METHOD_SERVICE);
-//                inputManager.hideSoftInputFromWindow(
-//                        getActivity().getCurrentFocus().getWindowToken(),
-//                        InputMethodManager.HIDE_NOT_ALWAYS);
-//                taskEditText.setText(null);
-//
-//            }
-//        });
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
