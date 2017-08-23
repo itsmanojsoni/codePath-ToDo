@@ -49,22 +49,22 @@ TaskDetailNoEditFragment.OnTaskNoEditFragmentInteractionListener{
         Log.d(TAG, "Item Clicked");
 
         if (task != null) {
-            TaskDetailNoEditFragment taskDetailFragment =
+            TaskDetailNoEditFragment taskDetailNoEditFragment =
                     (TaskDetailNoEditFragment) getSupportFragmentManager().findFragmentByTag(TODO_DETAIL_NO_EDIT_FRAGMENT_TAG);
 
-            if (taskDetailFragment == null) {
-                taskDetailFragment = TaskDetailNoEditFragment.newInstance(null, null);
+            if (taskDetailNoEditFragment == null) {
+                taskDetailNoEditFragment = TaskDetailNoEditFragment.newInstance(null, null);
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_DETAIL_NO_EDIT_FRAGMENT_TAG);
+                fragmentTransaction.replace(R.id.listContainer, taskDetailNoEditFragment, TODO_DETAIL_NO_EDIT_FRAGMENT_TAG);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-                taskDetailFragment.setData(task);
+                taskDetailNoEditFragment.setData(task);
             } else {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.listContainer, taskDetailFragment, TODO_DETAIL_NO_EDIT_FRAGMENT_TAG);
+                fragmentTransaction.replace(R.id.listContainer, taskDetailNoEditFragment, TODO_DETAIL_NO_EDIT_FRAGMENT_TAG);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-                taskDetailFragment.setData(task);
+                taskDetailNoEditFragment.setData(task);
             }
 
 
