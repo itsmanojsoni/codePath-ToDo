@@ -40,7 +40,7 @@ public class TaskDetailNoEditFragment extends Fragment implements  OnItemSelecte
 
     private Button addButton;
 
-    private static final String TAG = "TaskDetailFragment";
+    private static final String TAG = "TaskDetailNoEditFragment";
     private OnTaskNoEditFragmentInteractionListener mListener;
 
     public TaskDetailNoEditFragment() {

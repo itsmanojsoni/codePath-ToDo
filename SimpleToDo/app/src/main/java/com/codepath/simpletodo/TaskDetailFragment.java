@@ -246,6 +246,8 @@ public class TaskDetailFragment extends Fragment implements  OnItemSelectedListe
 
                 database.taskModel().deleteTasks(workingTask);
 
+                mListener.onTaskEditFragmentInteraction(workingTask, MainActivity.DELETE_TASK);
+
             }
         });
 

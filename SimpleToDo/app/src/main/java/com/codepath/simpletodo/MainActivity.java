@@ -117,6 +117,23 @@ TaskDetailNoEditFragment.OnTaskNoEditFragmentInteractionListener{
 
         } else if (action == DELETE_TASK) {
 
+            TaskListFragment listFragment =
+                    (TaskListFragment) getSupportFragmentManager().findFragmentByTag(TODO_LIST_FRAGMENT_TAG);
+
+            if (listFragment == null) {
+                Log.d("MainActivity", "gListFragment is null");
+                listFragment = TaskListFragment.newInstance(1);
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.listContainer, listFragment, TODO_LIST_FRAGMENT_TAG);
+                fragmentTransaction.commit();
+            } else {
+
+                Log.d("MainActivity", "list Fragment not null");
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.listContainer, listFragment, TODO_LIST_FRAGMENT_TAG);
+                fragmentTransaction.commit();
+            }
+
         }
     }
 
