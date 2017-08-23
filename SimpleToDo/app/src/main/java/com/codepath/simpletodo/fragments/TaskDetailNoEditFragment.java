@@ -1,10 +1,8 @@
-package com.codepath.simpletodo;
+package com.codepath.simpletodo.fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +11,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.codepath.simpletodo.db.AppDatabase;
+import com.codepath.simpletodo.data.Task;
+import com.codepath.simpletodo.MainActivity;
+import com.codepath.simpletodo.R;
 
 
 /**
@@ -96,7 +99,7 @@ public class TaskDetailNoEditFragment extends Fragment implements  OnItemSelecte
             @Override
             public void onClick(View view) {
                 if (mListener != null) {
-                    mListener.onTaskNoEditFragmentInteraction(workingTask,MainActivity.EDIT_TASK);
+                    mListener.onTaskNoEditFragmentInteraction(workingTask, MainActivity.EDIT_TASK);
                 }
 
             }

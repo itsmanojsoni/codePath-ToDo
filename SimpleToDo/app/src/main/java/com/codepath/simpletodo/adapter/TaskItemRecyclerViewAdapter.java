@@ -1,4 +1,4 @@
-package com.codepath.simpletodo;
+package com.codepath.simpletodo.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -7,7 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.codepath.simpletodo.TaskListFragment.OnListFragmentInteractionListener;
+import com.codepath.simpletodo.R;
+import com.codepath.simpletodo.fragments.TaskDetailEditFragment;
+import com.codepath.simpletodo.fragments.TaskListFragment.OnListFragmentInteractionListener;
+import com.codepath.simpletodo.data.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,14 +20,14 @@ import java.util.List;
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
+public class TaskItemRecyclerViewAdapter extends RecyclerView.Adapter<TaskItemRecyclerViewAdapter.ViewHolder> {
 
 
     private final OnListFragmentInteractionListener mListener;
     private List<Task> taskList = new ArrayList<>();
-    private final String TAG = "MyItemRecyclerViewAdapter";
+    private final String TAG = "TaskItemRecyclerViewAdapter";
 
-    public MyItemRecyclerViewAdapter(OnListFragmentInteractionListener listener) {
+    public TaskItemRecyclerViewAdapter(OnListFragmentInteractionListener listener) {
 
         mListener = listener;
     }

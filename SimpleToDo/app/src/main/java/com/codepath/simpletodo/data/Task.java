@@ -1,9 +1,7 @@
-package com.codepath.simpletodo;
+package com.codepath.simpletodo.data;
 
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.Entity;
-
-import java.util.Date;
 
 /**
  * Created by manoj on 8/13/17.

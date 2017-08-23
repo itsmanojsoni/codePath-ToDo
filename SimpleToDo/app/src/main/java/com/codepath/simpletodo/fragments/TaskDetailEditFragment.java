@@ -1,4 +1,4 @@
-package com.codepath.simpletodo;
+package com.codepath.simpletodo.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -24,6 +24,12 @@ import android.widget.TextView;
 
 
 import android.widget.AdapterView.OnItemSelectedListener;
+
+import com.codepath.simpletodo.db.AppDatabase;
+import com.codepath.simpletodo.data.Task;
+import com.codepath.simpletodo.MainActivity;
+import com.codepath.simpletodo.R;
+import com.codepath.simpletodo.util.TaskIDGen;
 
 
 /**

@@ -1,4 +1,4 @@
-package com.codepath.simpletodo;
+package com.codepath.simpletodo.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.codepath.simpletodo.db.AppDatabase;
+import com.codepath.simpletodo.data.Task;
+import com.codepath.simpletodo.adapter.TaskItemRecyclerViewAdapter;
+import com.codepath.simpletodo.R;
 import com.codepath.simpletodo.db.TaskDbHelper;
 
 
@@ -34,7 +38,7 @@ public class TaskListFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
     private static final String TAG = "ItemFrgament";
     private TaskDbHelper mHelper;
-    MyItemRecyclerViewAdapter adapter;
+    TaskItemRecyclerViewAdapter adapter;
     private List<Task> allTaskList = new ArrayList<>();
 
     /**
@@ -80,7 +84,7 @@ public class TaskListFragment extends Fragment {
             recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
 
-        adapter = new MyItemRecyclerViewAdapter(mListener);
+        adapter = new TaskItemRecyclerViewAdapter(mListener);
         recyclerView.setAdapter(adapter);
 
         addButton.setOnClickListener(new View.OnClickListener() {

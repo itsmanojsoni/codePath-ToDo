@@ -1,4 +1,4 @@
-package com.codepath.simpletodo;
+package com.codepath.simpletodo.util;
 
 /**
  * Created by manoj on 8/22/17.

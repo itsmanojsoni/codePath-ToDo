@@ -3,8 +3,11 @@ package com.codepath.simpletodo;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
+import com.codepath.simpletodo.data.Task;
+import com.codepath.simpletodo.fragments.TaskDetailEditFragment;
+import com.codepath.simpletodo.fragments.TaskDetailNoEditFragment;
+import com.codepath.simpletodo.fragments.TaskListFragment;
 
 
 public class MainActivity extends AppCompatActivity
