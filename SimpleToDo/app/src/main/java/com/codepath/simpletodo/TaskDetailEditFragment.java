@@ -178,6 +178,7 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
         summary.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                Log.d(TAG, "SetOnEditorAction action ID = "+actionId);
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     String text = v.getText().toString();
                     updateDatabaseWithNewSummary(text);
@@ -214,6 +215,12 @@ public class TaskDetailEditFragment extends Fragment implements  OnItemSelectedL
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                String summaryText = summary.getText().toString();
+                String descriptionText = description.getText().toString();
+
+                updateDatabaseWithNewSummary(summaryText);
+                updateDatabaseWithNewDescription(descriptionText);
 
                 if (mListener != null) {
                     Log.d(TAG, "save button on click called");
